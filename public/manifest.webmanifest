@@ -1,0 +1,15 @@
+{
+  "name": "摸鱼游戏厅",
+  "short_name": "摸鱼游戏厅",
+  "description": "地铁、高铁、排队、发呆专用的离线小游戏合集",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffd900",
+  "theme_color": "#ffd900",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
