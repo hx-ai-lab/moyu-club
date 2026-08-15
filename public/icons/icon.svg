@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
+  <title id="title">摸鱼游戏厅</title>
+  <desc id="description">明黄色背景上的黑色游戏厅标志</desc>
+  <rect width="512" height="512" fill="#ffd900"/>
+  <rect x="64" y="64" width="384" height="384" rx="52" fill="#111111"/>
+  <path fill="#ffd900" d="M138 164h22l32 48 32-48h22v184h-26V215l-28 42-28-42v133h-26V164zm140 184 54-184h25l-54 184h-25zm99-184h62v27h-35v130h26v-49h-21v-27h48v103h-80V164z"/>
+</svg>
