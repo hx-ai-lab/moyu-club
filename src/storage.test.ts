@@ -36,7 +36,14 @@ describe('2048 storage', () => {
   })
   it('creates a game only when there is no valid save', () => {
     const storage = new MemoryStorage()
-    expect(initialGame2048(storage, () => 0)).toEqual(createGame2048(() => 0))
+    const beforeCreation = Date.now()
+    const created = initialGame2048(storage, () => 0)
+    const afterCreation = Date.now()
+    const expected = createGame2048(() => 0)
+
+    expect(created).toMatchObject({ version: expected.version, board: expected.board, score: expected.score, best: expected.best, over: expected.over, won: expected.won })
+    expect(created.updatedAt).toBeGreaterThanOrEqual(beforeCreation)
+    expect(created.updatedAt).toBeLessThanOrEqual(afterCreation)
   })
   it('tolerates corrupt and structurally invalid saves', () => {
     const storage = new MemoryStorage(); storage.setItem(STORAGE_KEYS.game2048, '{broken')
