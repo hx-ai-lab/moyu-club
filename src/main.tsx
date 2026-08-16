@@ -6,5 +6,13 @@ import './styles.css'
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
 
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`))
+  window.addEventListener('load', () => {
+    void navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL, updateViaCache: 'none' })
+  })
+}
+
+if ('storage' in navigator) {
+  void navigator.storage.persisted?.().then(persisted => {
+    if (!persisted) return navigator.storage.persist?.()
+  }).catch(() => undefined)
 }
