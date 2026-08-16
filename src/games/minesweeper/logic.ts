@@ -1,0 +1,7 @@
+import type { Cell } from './types'
+export const blankBoard=(rows:number,cols:number):Cell[][]=>Array.from({length:rows},()=>Array.from({length:cols},()=>({mine:false,adjacent:0,open:false,flag:false})))
+const around=(r:number,c:number,rows:number,cols:number)=>{const out:[number,number][]=[];for(let y=Math.max(0,r-1);y<=Math.min(rows-1,r+1);y++)for(let x=Math.max(0,c-1);x<=Math.min(cols-1,c+1);x++)if(y!==r||x!==c)out.push([y,x]);return out}
+export function generateBoard(rows:number,cols:number,mines:number,safeR:number,safeC:number,random=Math.random){const b=blankBoard(rows,cols);const spots=[] as [number,number][];for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)if(r!==safeR||c!==safeC)spots.push([r,c]);for(let i=spots.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[spots[i],spots[j]]=[spots[j],spots[i]]}spots.slice(0,mines).forEach(([r,c])=>b[r][c].mine=true);for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)b[r][c].adjacent=around(r,c,rows,cols).filter(([y,x])=>b[y][x].mine).length;return b}
+export function reveal(board:Cell[][],r:number,c:number){const b=board.map(row=>row.map(x=>({...x})));if(b[r][c].flag||b[r][c].open)return b;const queue:[[number,number]]=[[r,c]];while(queue.length){const [y,x]=queue.shift()!;const cell=b[y][x];if(cell.open||cell.flag)continue;cell.open=true;if(!cell.mine&&cell.adjacent===0)around(y,x,b.length,b[0].length).forEach(p=>queue.push(p))}return b}
+export const hasWon=(b:Cell[][])=>b.every(row=>row.every(c=>c.mine||c.open))
+export const hasLost=(b:Cell[][])=>b.some(row=>row.some(c=>c.mine&&c.open))

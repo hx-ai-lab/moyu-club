@@ -1,0 +1,2 @@
+import{describe,expect,it}from'vitest';import{createPuzzle,isSolved,isValid}from'./logic';
+describe('sudoku',()=>{it.each(['简单','中等','困难'] as const)('creates valid %s board',l=>{const g=createPuzzle(l);expect(isValid(g.puzzle)).toBe(true);expect(isValid(g.solution)).toBe(true)});it('validates solution',()=>{const g=createPuzzle('简单');expect(isSolved(g.solution,g.solution)).toBe(true);expect(isSolved(g.puzzle,g.solution)).toBe(false)});it('rejects duplicates',()=>{const g=createPuzzle('简单');g.solution[0][0]=g.solution[0][1];expect(isValid(g.solution)).toBe(false)})})

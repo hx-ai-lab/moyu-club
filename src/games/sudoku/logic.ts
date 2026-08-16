@@ -1,0 +1,5 @@
+import type { Difficulty,Grid } from './types'
+export const SOLUTION:Grid=[[5,3,4,6,7,8,9,1,2],[6,7,2,1,9,5,3,4,8],[1,9,8,3,4,2,5,6,7],[8,5,9,7,6,1,4,2,3],[4,2,6,8,5,3,7,9,1],[7,1,3,9,2,4,8,5,6],[9,6,1,5,3,7,2,8,4],[2,8,7,4,1,9,6,3,5],[3,4,5,2,8,6,1,7,9]]
+export function isValid(grid:Grid){for(let i=0;i<9;i++){const row=grid[i].filter(Boolean),col=grid.map(r=>r[i]).filter(Boolean);if(new Set(row).size!==row.length||new Set(col).size!==col.length)return false}for(let br=0;br<3;br++)for(let bc=0;bc<3;bc++){const a=[];for(let r=0;r<3;r++)for(let c=0;c<3;c++){const v=grid[br*3+r][bc*3+c];if(v)a.push(v)}if(new Set(a).size!==a.length)return false}return true}
+export const isSolved=(grid:Grid,solution:Grid)=>grid.every((row,r)=>row.every((v,c)=>v===solution[r][c]))
+export function createPuzzle(level:Difficulty,random=Math.random){const nums=[1,2,3,4,5,6,7,8,9].sort(()=>random()-.5);const solution=SOLUTION.map(row=>row.map(v=>nums[v-1]));const holes={简单:36,中等:45,困难:52}[level],puzzle=solution.map(r=>[...r]);const cells=Array.from({length:81},(_,i)=>i).sort(()=>random()-.5);cells.slice(0,holes).forEach(i=>puzzle[Math.floor(i/9)][i%9]=0);return{puzzle,solution}}
