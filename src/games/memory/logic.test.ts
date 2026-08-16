@@ -1,0 +1,2 @@
+import{describe,expect,it}from'vitest';import{createDeck,isMatch,memoryWon}from'./logic';
+describe('memory',()=>{it('creates eight pairs',()=>{const d=createDeck(()=>.5);expect(d).toHaveLength(16);expect(new Set(d.map(c=>c.symbol)).size).toBe(8)});it('matches equal symbols only',()=>{const d=createDeck();const pair=d.filter(c=>c.symbol===d[0].symbol);expect(isMatch(pair[0],pair[1])).toBe(true);expect(isMatch(d[0],d.find(c=>c.symbol!==d[0].symbol)!)).toBe(false)});it('detects victory',()=>{const d=createDeck().map(c=>({...c,matched:true}));expect(memoryWon(d)).toBe(true)})})
